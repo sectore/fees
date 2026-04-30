@@ -16,6 +16,13 @@ Inspired by [@0xb10c](https://github.com/0xb10c)'s list of [Public Bitcoin Feera
 - [Blockcypher](https://www.blockcypher.com/dev/bitcoin/)
 - [Blockchain.info](https://www.blockchain.com/explorer/api)
 
+The Mempool and Esplora endpoints can also point at compatible providers. For example:
+
+```shell
+VITE_URL_MEMPOOL=https://bitcoinsapi.com/api/v1/compat/mempool/fees/recommended
+VITE_URL_ESPLORA=https://bitcoinsapi.com/api/fee-estimates
+```
+
 Following APIs can't be supported due missing data:
 
 - [Bitcoiner.live](https://bitcoiner.live/api/fees/estimates/latest) starts calculation of estimated fees for next 30min, but not before. That's 'fast' fees for next block are missing.
