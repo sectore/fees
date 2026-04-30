@@ -15,13 +15,7 @@ Inspired by [@0xb10c](https://github.com/0xb10c)'s list of [Public Bitcoin Feera
 - [Bitgo](https://developers.bitgo.com/explorer)
 - [Blockcypher](https://www.blockcypher.com/dev/bitcoin/)
 - [Blockchain.info](https://www.blockchain.com/explorer/api)
-
-The Mempool and Esplora endpoints can also point at compatible providers. For example:
-
-```shell
-VITE_URL_MEMPOOL=https://bitcoinsapi.com/api/v1/compat/mempool/fees/recommended
-VITE_URL_ESPLORA=https://bitcoinsapi.com/api/fee-estimates
-```
+- [Satoshi API](https://bitcoinsapi.com/)
 
 Following APIs can't be supported due missing data:
 

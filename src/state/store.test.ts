@@ -4,6 +4,7 @@ import { defaultEndpoints } from './store'
 import { BrowserKeyValueStore } from '@effect/platform-browser'
 import type { EndpointMap } from '../types'
 import { mockEndpointMap } from '../test/mocks'
+import * as SatoshiApi from '../api/satoshi-api'
 
 describe('Store', () => {
   test('get defaultEndpoints', () => {
@@ -13,5 +14,8 @@ describe('Store', () => {
       Effect.provide(defaultEndpoints, BrowserKeyValueStore.layerLocalStorage)
     )
     expect(result).toStrictEqual(endpointMap)
+    expect(result['satoshi-api']).toStrictEqual(
+      new URL(SatoshiApi.DEFAULT_ENDPOINT_URL)
+    )
   })
 })

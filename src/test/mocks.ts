@@ -4,6 +4,7 @@ import * as Esplora from '../api/esplora'
 import * as Bitgo from '../api/bitgo'
 import * as Blockcypher from '../api/blockcypher'
 import * as Blockchain from '../api/blockchain'
+import * as SatoshiApi from '../api/satoshi-api'
 import * as Rpc from '../api/rpc-explorer'
 
 const defaultEndpointMap = (): EndpointMap => ({
@@ -13,6 +14,7 @@ const defaultEndpointMap = (): EndpointMap => ({
   bitgo: new URL(Bitgo.DEFAULT_ENDPOINT_URL),
   blockcypher: new URL(Blockcypher.DEFAULT_ENDPOINT_URL),
   blockchain: new URL(Blockchain.DEFAULT_ENDPOINT_URL),
+  'satoshi-api': new URL(SatoshiApi.DEFAULT_ENDPOINT_URL),
 })
 
 export const mockEndpointMap = (

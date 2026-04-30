@@ -14,6 +14,7 @@ describe('Endpoint', () => {
     // true
     expect(isEndpoint('mempool')).toBeTruthy()
     expect(isEndpoint('esplora')).toBeTruthy()
+    expect(isEndpoint('satoshi-api')).toBeTruthy()
     // false
     expect(isEndpoint('')).toBeFalsy()
     expect(isEndpoint('unknown')).toBeFalsy()
@@ -53,6 +54,7 @@ describe('EndpointMapSchema', () => {
   const url4 = 'https://example4.com/'
   const url5 = 'https://example5.com/fees'
   const url6 = 'https://example6.net/'
+  const url7 = 'https://example7.org/api/v1/fees/recommended'
 
   const endpointMap: EndpointMap = mockEndpointMap({
     mempool: new URL(url1),
@@ -61,6 +63,7 @@ describe('EndpointMapSchema', () => {
     bitgo: new URL(url4),
     blockcypher: new URL(url5),
     blockchain: new URL(url6),
+    'satoshi-api': new URL(url7),
   })
 
   const endpointMapString = pipe(endpointMap, S.encodeSync(EndpointMapSchema))
