@@ -18,7 +18,7 @@ import * as Blockcypher from '../api/blockcypher'
 import * as Blockchain from '../api/blockchain'
 import * as SatoshiApi from '../api/satoshi-api'
 import * as Storage from '../util/storage'
-import { INTERVAL_MS, MAX_TICK_MS } from './store'
+import { INTERVAL_MS, MAX_TICK_MS } from './constants'
 import { FeesService } from '../api/common'
 
 const MAX_RETRIES = 2

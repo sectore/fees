@@ -1,12 +1,8 @@
 <script lang="ts">
   import btcLogo from './assets/btc.svg'
   import { tv } from 'tailwind-variants'
-  import {
-    actorRef,
-    MAX_TICK_MS,
-    INTERVAL_MS,
-    themeActorRef,
-  } from './state/store'
+  import { actorRef, themeActorRef } from './state/store'
+  import { MAX_TICK_MS, INTERVAL_MS } from './state/constants'
   import * as AD from './util/async'
   import { pipe, Option as O } from 'effect'
   import { useSelector } from '@xstate/svelte'

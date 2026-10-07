@@ -1,7 +1,5 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { createActor } from 'xstate'
-// `machine` and `store` import each other, `store` has to be loaded first
-import './store'
 import { machine } from './machine'
 import { mockEndpointMap } from '../test/mocks'
 
