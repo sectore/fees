@@ -35,9 +35,16 @@
 
   $: percent = Math.round(($ticks * INTERVAL_MS * 100) / MAX_TICK_MS)
 
-  // loaded fees below 1 sat/vB (or 0) will always be rendered as 1.
-  const roundFee = (fee: number) =>
-    pipe(fee, N.round(0), N.clamp({ minimum: 1, maximum: Infinity }))
+  // Fees below 100 sat/vB are shown with one decimal, all others as integers.
+  // Loaded fees are never 0, because Fee renders 0 as "loading".
+  const roundFee = (fee: number) => {
+    const rounded = pipe(
+      fee,
+      N.round(1),
+      N.clamp({ minimum: 0.1, maximum: Infinity })
+    )
+    return rounded < 100 ? rounded : N.round(fee, 0)
+  }
 
   // helper to map fees into values that can be rendered with <Fee />
   $: feesToRender = pipe(
