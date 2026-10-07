@@ -11,7 +11,9 @@ import {
   type Theme,
 } from '../types'
 
-const KEY_ENDPOITNS = 'endpoints'
+// Debug mode uses mock APIs, keep its endpoints apart from regular ones
+const KEY_ENDPOITNS =
+  import.meta.env.MODE === 'debug' ? 'endpoints:debug' : 'endpoints'
 const KEY_THEME = 'theme'
 
 const getLocalStorage = <A>(
