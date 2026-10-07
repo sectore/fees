@@ -15,7 +15,6 @@ Inspired by [@0xb10c](https://github.com/0xb10c)'s list of [Public Bitcoin Feera
 - [Bitgo](https://developers.bitgo.com/explorer)
 - [Blockcypher](https://www.blockcypher.com/dev/bitcoin/)
 - [Blockchain.info](https://www.blockchain.com/explorer/api)
-- [Satoshi API](https://bitcoinsapi.com/)
 
 Following APIs can't be supported due missing data:
 
