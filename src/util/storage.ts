@@ -2,7 +2,7 @@ import * as KeyValueStore from '@effect/platform/KeyValueStore'
 import { BrowserKeyValueStore } from '@effect/platform-browser'
 
 import * as Effect from 'effect/Effect'
-import { Schema as S } from '@effect/schema'
+import { Schema as S } from 'effect'
 import { pipe, Option as O } from 'effect'
 import {
   EndpointMapSchema,

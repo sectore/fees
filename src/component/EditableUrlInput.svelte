@@ -150,7 +150,7 @@
       <button
         on:click={onSaveHandler}
         disabled={isError}
-        class="text-gray-400 enabled:hover:text-success dark:text-gray-300"
+        class="enabled:hover:text-success text-gray-400 dark:text-gray-300"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-8 w-8 rounded-lg bg-gray-100 p-1 text-inherit dark:bg-gray-700"
@@ -164,9 +164,7 @@
     </div>
   {/if}
   {#if isSaved}
-    <div class={tvNote({ isError, isSaved })}>
-      {'Saved!'}
-    </div>
+    <div class={tvNote({ isError, isSaved })}>Saved!</div>
   {/if}
   {#if isError}
     <div class={tvNote({ isError, isSaved })}>

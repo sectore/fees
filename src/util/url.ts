@@ -1,5 +1,5 @@
-import { ParseResult } from '@effect/schema'
-import * as S from '@effect/schema/Schema'
+import { ParseResult } from 'effect'
+import { Schema as S } from 'effect'
 import { Effect, pipe } from 'effect'
 
 export const validateUrl = (url: string): Effect.Effect<URL, Error, never> =>
@@ -35,13 +35,12 @@ export const isUrl = (input: unknown): input is URL => input instanceof URL
 // Code mostly inspired by https://github.com/PREreview/coar-notify/blob/3ed80747b8225ed0e62c51b026a48b41b1dc49c0/src/Url.ts#L5
 const URLFromSelf: S.Schema<URL, URL, never> = S.instanceOf(URL)
 
-export const UrlSchema = S.transformOrFail(
-  S.string,
-  URLFromSelf,
-  (s, _, ast) =>
-    ParseResult.try({
+export const UrlSchema = S.transformOrFail(S.String, URLFromSelf, {
+  strict: true,
+  decode: (s, _, ast) =>
+    Effect.try({
       try: () => new URL(s),
-      catch: () => ParseResult.type(ast, s),
+      catch: () => new ParseResult.Type(ast, s),
     }),
-  (url) => ParseResult.succeed(url.href)
-)
+  encode: (url) => ParseResult.succeed(url.href),
+})

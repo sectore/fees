@@ -30,7 +30,7 @@
   )}
 >
   <div class="mb-10 flex place-content-between items-center">
-    <h2 class="text-3xl text-gray-700 dark:text-gray-300 lg:text-4xl">
+    <h2 class="text-3xl text-gray-700 lg:text-4xl dark:text-gray-300">
       Settings
     </h2>
     <button
@@ -50,12 +50,12 @@
     </button>
   </div>
 
-  <h3 class="mb-6 text-2xl text-gray-700 dark:text-gray-300 lg:text-3xl">
+  <h3 class="mb-6 text-2xl text-gray-700 lg:text-3xl dark:text-gray-300">
     Theme
   </h3>
   <div class="mb-10 flex items-center gap-x-2">
     <button
-      class="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 lg:text-base"
+      class="text-sm text-gray-700 hover:text-gray-900 lg:text-base dark:text-gray-300 dark:hover:text-gray-100"
       disabled={theme === 'light'}
       on:click={(_) => onChangeTheme('light')}>light</button
     >
@@ -72,15 +72,15 @@
     >
   </div>
   <h3
-    class="lg_mb-6 mb-4 text-2xl text-gray-700 dark:text-gray-300 lg:text-3xl"
+    class="lg_mb-6 mb-4 text-2xl text-gray-700 lg:text-3xl dark:text-gray-300"
   >
     Endpoints
   </h3>
   <ul>
-    {#each entries(endpoints) as [ep, url]}
+    {#each entries(endpoints) as [ep, url] (ep)}
       <li class="my-4 first:mt-0">
         <h3
-          class="mb-2 text-base uppercase text-gray-700 dark:text-gray-300 lg:text-lg"
+          class="mb-2 text-base text-gray-700 uppercase lg:text-lg dark:text-gray-300"
         >
           {ep}
         </h3>

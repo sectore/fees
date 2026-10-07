@@ -1,6 +1,6 @@
 import type * as App from '../types'
 
-import * as S from '@effect/schema/Schema'
+import { Schema as S } from 'effect'
 import { Effect as E, Layer, pipe } from 'effect'
 import { urlWithDefault } from '../util/url'
 import * as C from './common'
@@ -11,13 +11,13 @@ export const DEFAULT_ENDPOINT_URL =
 export const defaultUrl = () =>
   urlWithDefault(import.meta.env.VITE_URL_RPC_EXPLORER, DEFAULT_ENDPOINT_URL)
 
-const FeesSchema = S.struct({
-  nextBlock: S.number,
-  '30min': S.number,
-  '60min': S.number,
+const FeesSchema = S.Struct({
+  nextBlock: S.Number,
+  '30min': S.Number,
+  '60min': S.Number,
 })
 
-type Fees = S.Schema.To<typeof FeesSchema>
+type Fees = S.Schema.Type<typeof FeesSchema>
 
 const toFees = (fees: Fees): E.Effect<App.Fees, never, never> =>
   E.succeed({

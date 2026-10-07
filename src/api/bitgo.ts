@@ -1,6 +1,6 @@
 import type * as App from '../types'
 
-import * as S from '@effect/schema/Schema'
+import { Schema as S } from 'effect'
 import { Effect as E, Layer, pipe } from 'effect'
 import { urlWithDefault } from '../util/url'
 import * as C from './common'
@@ -10,15 +10,15 @@ export const DEFAULT_ENDPOINT_URL = 'https://www.bitgo.com/api/v2/btc/tx/fee'
 export const defaultUrl = () =>
   urlWithDefault(import.meta.env.VITE_URL_BITGO, DEFAULT_ENDPOINT_URL)
 
-const FeesSchema = S.struct({
-  feeByBlockTarget: S.struct({
-    '1': S.number,
-    '3': S.number,
-    '6': S.number,
+const FeesSchema = S.Struct({
+  feeByBlockTarget: S.Struct({
+    '1': S.Number,
+    '3': S.Number,
+    '6': S.Number,
   }),
 })
 
-type Fees = S.Schema.To<typeof FeesSchema>
+type Fees = S.Schema.Type<typeof FeesSchema>
 
 const toFees = (fees: Fees): E.Effect<App.Fees, never> =>
   E.succeed({

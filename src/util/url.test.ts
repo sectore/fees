@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import { UrlSchema, isUrl, urlWithDefault } from './url'
 import { Effect, pipe, Option as O } from 'effect'
-import * as S from '@effect/schema/Schema'
+import { Schema as S } from 'effect'
 
 describe('isUrl', () => {
   test('true', () => {
