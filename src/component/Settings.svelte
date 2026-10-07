@@ -34,6 +34,7 @@
       Settings
     </h2>
     <button
+      aria-label="Close"
       class="group text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100"
       on:click={onClose}
     >

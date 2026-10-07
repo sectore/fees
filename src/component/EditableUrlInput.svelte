@@ -89,6 +89,7 @@
       </button>
       <!-- EDIT -->
       <button
+        aria-label="Edit"
         class="text-gray-400 group-hover:text-gray-500 dark:text-gray-400 group-hover:dark:text-gray-300"
         on:click={onEditHandler}
         ><svg
@@ -135,7 +136,7 @@
         }}
       />
       <!-- CANCEL -->
-      <button on:click={onCancelHandler}>
+      <button aria-label="Cancel" on:click={onCancelHandler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-8 w-8 rounded-lg bg-gray-100 p-1 text-gray-400 hover:text-gray-600 dark:bg-gray-700 dark:hover:text-gray-200"
@@ -148,6 +149,7 @@
       </button>
       <!-- SAVE -->
       <button
+        aria-label="Save"
         on:click={onSaveHandler}
         disabled={isError}
         class="enabled:hover:text-success text-gray-400 dark:text-gray-300"
