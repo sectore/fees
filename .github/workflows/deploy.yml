@@ -38,7 +38,16 @@ jobs:
         uses: cachix/install-nix-action@v31
 
       - name: Install dependencies
-        run: nix develop --command bash -c 'pnpm install'
+        run: nix develop --command bash -c 'pnpm install --frozen-lockfile'
+
+      - name: Type check
+        run: nix develop --command bash -c 'pnpm check'
+
+      - name: Lint
+        run: nix develop --command bash -c 'pnpm lint:ci'
+
+      - name: Run tests
+        run: nix develop --command bash -c 'pnpm test'
 
       - name: Build
         run: nix develop --command bash -c 'pnpm build && touch dist/.nojekyll'
