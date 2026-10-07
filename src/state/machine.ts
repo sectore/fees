@@ -41,12 +41,6 @@ export const machine = setup({
       endpoints: EndpointMap
       selectedEndpoint: Endpoint
     }
-    actions: {
-      type: 'storeEndpoints'
-      params: {
-        endpoints: EndpointMap
-      }
-    }
   },
   actors: {
     fetchFeesActor: fromPromise(
@@ -105,15 +99,23 @@ export const machine = setup({
     checkLastRetry: ({ context }) => context.retries >= MAX_RETRIES,
     checkTick: ({ context }) => context.ticks * INTERVAL_MS < MAX_TICK_MS,
     checkMaxTick: ({ context }) => context.ticks * INTERVAL_MS >= MAX_TICK_MS,
+    isSelectedEndpoint: ({ context, event }) =>
+      event.type === 'endpoint.update' &&
+      event.data.endpoint === context.selectedEndpoint,
   },
   actions: {
-    storeEndpoints: async (
-      _,
-      params: {
-        endpoints: EndpointMap
-      }
-    ) => {
-      await Effect.runPromise(Storage.setEndpoints(params.endpoints))
+    updateEndpoint: assign(({ context, event }) =>
+      event.type === 'endpoint.update'
+        ? {
+            endpoints: {
+              ...context.endpoints,
+              [event.data.endpoint]: event.data.url,
+            },
+          }
+        : {}
+    ),
+    storeEndpoints: async ({ context }) => {
+      await Effect.runPromise(Storage.setEndpoints(context.endpoints))
     },
   },
 }).createMachine({
@@ -188,31 +190,25 @@ export const machine = setup({
         ticks: 0,
       })),
     },
-    'endpoint.update': {
-      target: '.loading',
-      actions: [
-        assign(({ context, event }) => ({
-          fees: pipe(context.fees, AD.getValue, AD.loading),
-          url: event.data.url,
-          selectedEndpoint: event.data.endpoint,
-          endpoints: {
-            ...context.endpoints,
-            [event.data.endpoint]: event.data.url,
-          },
-          retries: 0,
-          ticks: 0,
-        })),
-        {
-          type: 'storeEndpoints',
-          params: ({ context, event }) => ({
-            endpoints: {
-              ...context.endpoints,
-              [event.data.endpoint]: event.data.url,
-            },
-          }),
-        },
-      ],
-    },
+    'endpoint.update': [
+      {
+        // reload only if the updated endpoint is the selected one
+        guard: 'isSelectedEndpoint',
+        target: '.loading',
+        actions: [
+          'updateEndpoint',
+          assign(({ context }) => ({
+            fees: pipe(context.fees, AD.getValue, AD.loading),
+            retries: 0,
+            ticks: 0,
+          })),
+          'storeEndpoints',
+        ],
+      },
+      {
+        actions: ['updateEndpoint', 'storeEndpoints'],
+      },
+    ],
     'fees.load': {
       target: '.loading',
       actions: assign(({ context }) => ({
