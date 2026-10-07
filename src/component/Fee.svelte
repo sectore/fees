@@ -11,8 +11,11 @@
   // Since daisy's countdown does support values up to 99 only,
   // split value into an array of strings, but in reverse order.
   // Needed to render countdown animation with single elements,
-  // especially to support fee values > 99
-  $: valueStrings = value.toString().split('').reverse()
+  // especially to support fee values > 99.
+  // Values below 100 are rendered with one decimal (e.g. `1.0`) to keep the layout stable.
+  $: valueStrings = (value < 100 ? value.toFixed(1) : value.toString())
+    .split('')
+    .reverse()
 
   const tvValue = tv({
     // elements need to be rendered in reverse order (see comment at `valueStrings` above)
@@ -68,7 +71,12 @@
   {#if value > 0}
     <div class={tvValue({ size: type, inactive: loading })}>
       {#each valueStrings as valueString, i (i)}
-        <span transition:fade style="--value:{valueString};"></span>
+        {#if valueString === '.'}
+          <span class="dot" transition:fade>.</span>
+        {:else}
+          <span class="digit" transition:fade style="--value:{valueString};"
+          ></span>
+        {/if}
       {/each}
     </div>
   {:else}
@@ -93,7 +101,18 @@
     Override daisy's countdown to display single values of 0-9 only
     Original code https://github.com/saadeghi/daisyui/blob/master/src/components/unstyled/countdown.css
   */
-  .single > *::before {
+  .single > .digit::before {
     content: '0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A';
+  }
+  /* static decimal separator: opt out of daisy's countdown digit rendering */
+  .single > .dot {
+    visibility: visible;
+    width: auto;
+    overflow: visible;
+    transition: none;
+  }
+  .single > .dot::before,
+  .single > .dot::after {
+    content: none;
   }
 </style>

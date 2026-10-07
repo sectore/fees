@@ -15,7 +15,6 @@ Inspired by [@0xb10c](https://github.com/0xb10c)'s list of [Public Bitcoin Feera
 - [Bitgo](https://developers.bitgo.com/explorer)
 - [Blockcypher](https://www.blockcypher.com/dev/bitcoin/)
 - [Blockchain.info](https://www.blockchain.com/explorer/api)
-- [Satoshi API](https://bitcoinsapi.com/)
 
 Following APIs can't be supported due missing data:
 
@@ -23,9 +22,33 @@ Following APIs can't be supported due missing data:
 - [Blockchair](https://api.blockchair.com/bitcoin/stats) supports a single `suggested_transaction_fee_per_byte_sat` only, but no relationship to next blocks.
 - [BTC.com](https://btc.com/service/fees/distribution) supports a `one_block_fee` only, but no relationship to next blocks.
 
+## Development
+
+```sh
+pnpm install      # only once
+pnpm dev          # dev server
+pnpm lint         # eslint
+pnpm check        # svelte-check
+pnpm test         # vitest
+```
+
+### Mock APIs
+
+Run mock responses from [`fixtures/`](./fixtures) locally (e.g. to test high fees):
+
+```sh
+pnpm fixtures     # serves http://localhost:8787/<api>/data.json
+pnpm dev:debug    # loads .env.debug, pointing all endpoints to the mocks
+```
+
+Use `.env.debug.local` for personal overrides, e.g. `.../mempool/high.json`.
+
 ## Build
 
-TBD
+```sh
+pnpm build        # output in dist/
+pnpm preview      # serve the build locally
+```
 
 ## Random
 

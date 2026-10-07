@@ -14,7 +14,6 @@ const ENDPOINTS = [
   'bitgo',
   'blockcypher',
   'blockchain',
-  'satoshi-api',
 ] as const
 
 export const EndpointSchema = S.Literal(...ENDPOINTS)

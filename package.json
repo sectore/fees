@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:debug": "vite --mode debug",
+    "fixtures": "node fixtures/serve.mjs",
     "build": "vite build",
     "lint": "eslint 'src/**/*.{ts,svelte}' --fix --cache",
     "lint:ci": "eslint 'src/**/*.{ts,svelte}'",
