@@ -15,9 +15,6 @@ import * as Blockchain from '../api/blockchain'
 import * as Rpc from '../api/rpc-explorer'
 import * as Storage from '../util/storage'
 
-export const INTERVAL_MS = 100
-export const MAX_TICK_MS = 30000
-
 export const defaultEndpoints: Effect.Effect<
   EndpointMap,
   Error,
