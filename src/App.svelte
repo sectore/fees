@@ -1,5 +1,4 @@
 <script lang="ts">
-  import btcLogo from './assets/btc.svg'
   import { tv } from 'tailwind-variants'
   import { actorRef, themeActorRef } from './state/store'
   import { MAX_TICK_MS, INTERVAL_MS } from './state/constants'
@@ -12,6 +11,8 @@
   import Settings from './component/Settings.svelte'
   import { fade } from 'svelte/transition'
   import type { Readable } from 'svelte/store'
+
+  const btcLogo = `${import.meta.env.BASE_URL}logo.svg`
 
   const send = actorRef.send
   const fees = useSelector(actorRef, (s) => s.context.fees)
