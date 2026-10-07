@@ -8,7 +8,7 @@
     themeActorRef,
   } from './state/store'
   import * as AD from './util/async'
-  import { pipe, Option as O } from 'effect'
+  import { pipe, Number as N, Option as O } from 'effect'
   import { useSelector } from '@xstate/svelte'
   import { Fees, entries, isEndpoint, type Theme } from './types'
   import Fee from './component/Fee.svelte'
@@ -35,14 +35,20 @@
 
   $: percent = Math.round(($ticks * INTERVAL_MS * 100) / MAX_TICK_MS)
 
+  // fees below 1 sat/vB would round to 0, which is rendered as "loading"
+  const roundFee = (fee: number) =>
+    fee > 0
+      ? pipe(fee, N.round(0), N.clamp({ minimum: 1, maximum: Infinity }))
+      : 0
+
   // helper to map fees into values that can be rendered with <Fee />
   $: feesToRender = pipe(
     $fees,
     AD.getValue,
     O.map((fees) => ({
-      fast: Math.round(fees.fast),
-      medium: Math.round(fees.medium),
-      slow: Math.round(fees.slow),
+      fast: roundFee(fees.fast),
+      medium: roundFee(fees.medium),
+      slow: roundFee(fees.slow),
     })),
     O.getOrElse<Fees>(() => ({ fast: 0, medium: 0, slow: 0 })),
     // map into array - needed to use #each
