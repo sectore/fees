@@ -1,5 +1,5 @@
 allowBuilds:
   esbuild: true
-  msgpackr-extract: true
+  msgpackr-extract: false
   simple-git-hooks: true
   svelte-preprocess: true
