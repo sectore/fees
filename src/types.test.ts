@@ -5,7 +5,7 @@ import {
   isEndpoint,
   type EndpointMap,
 } from './types'
-import * as S from '@effect/schema/Schema'
+import { Schema as S } from 'effect'
 import { pipe, Effect } from 'effect'
 import { mockEndpointMap } from './test/mocks'
 

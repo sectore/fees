@@ -67,7 +67,7 @@
 {#if !error}
   {#if value > 0}
     <div class={tvValue({ size: type, inactive: loading })}>
-      {#each valueStrings as valueString}
+      {#each valueStrings as valueString, i (i)}
         <span transition:fade style="--value:{valueString};"></span>
       {/each}
     </div>
@@ -88,6 +88,7 @@
 </div>
 
 <style lang="postcss">
+  @reference "../app.css";
   /* 
     Override daisy's countdown to display single values of 0-9 only
     Original code https://github.com/saadeghi/daisyui/blob/master/src/components/unstyled/countdown.css

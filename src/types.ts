@@ -1,11 +1,11 @@
-import type { ParseError } from '@effect/schema/ParseResult'
-import * as S from '@effect/schema/Schema'
+import type { ParseResult } from 'effect'
+import { Schema as S } from 'effect'
 import type { AsyncData } from './util/async'
 import { UrlSchema } from './util/url'
 
-export const ThemeSchema = S.parseJson(S.literal('dark', 'light'))
+export const ThemeSchema = S.parseJson(S.Literal('dark', 'light'))
 
-export type Theme = S.Schema.To<typeof ThemeSchema>
+export type Theme = S.Schema.Type<typeof ThemeSchema>
 
 const ENDPOINTS = [
   'mempool',
@@ -17,15 +17,15 @@ const ENDPOINTS = [
   'satoshi-api',
 ] as const
 
-export const EndpointSchema = S.literal(...ENDPOINTS)
+export const EndpointSchema = S.Literal(...ENDPOINTS)
 
-export type Endpoint = S.Schema.To<typeof EndpointSchema>
+export type Endpoint = S.Schema.Type<typeof EndpointSchema>
 
 export const EndpointMapSchema = S.parseJson(
-  S.record(EndpointSchema, UrlSchema)
+  S.Record({ key: EndpointSchema, value: UrlSchema })
 )
 
-export type EndpointMap = S.Schema.To<typeof EndpointMapSchema>
+export type EndpointMap = S.Schema.Type<typeof EndpointMapSchema>
 
 // type guard
 export const isEndpoint = (value: string): value is Endpoint =>
@@ -34,15 +34,15 @@ export const isEndpoint = (value: string): value is Endpoint =>
     (e) => e.toString()
   ).includes(value)
 
-export const Fees = S.struct({
-  fast: S.number,
-  medium: S.number,
-  slow: S.number,
+export const Fees = S.Struct({
+  fast: S.Number,
+  medium: S.Number,
+  slow: S.Number,
 })
 
-export type Fees = S.Schema.To<typeof Fees>
+export type Fees = S.Schema.Type<typeof Fees>
 
-export type GetFeeError = Error | ParseError
+export type GetFeeError = Error | ParseResult.ParseError
 
 export type FeesAsync = AsyncData<GetFeeError, Fees>
 

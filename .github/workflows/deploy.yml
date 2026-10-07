@@ -29,25 +29,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v25
+        uses: cachix/install-nix-action@v31
 
       - name: Install dependencies
-        run: nix develop --command bash -c 'pnpm install'
+        run: nix develop --command bash -c 'pnpm install --frozen-lockfile'
+
+      - name: Type check
+        run: nix develop --command bash -c 'pnpm check'
+
+      - name: Lint
+        run: nix develop --command bash -c 'pnpm lint:ci'
+
+      - name: Run tests
+        run: nix develop --command bash -c 'pnpm test'
 
       - name: Build
         run: nix develop --command bash -c 'pnpm build && touch dist/.nojekyll'
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

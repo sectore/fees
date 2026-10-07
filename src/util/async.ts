@@ -13,7 +13,6 @@
  * @see https://github.com/TylorS/typed/blob/development/packages/async-data/src/AsyncData.ts
  */
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Either as E, Option as O } from 'effect'
 import { dual, pipe } from 'effect/Function'
 
@@ -29,7 +28,7 @@ export class Loading<A> {
 
 export class Result<E, A> {
   readonly _tag = 'Result'
-  constructor(readonly data: E.Either<E, A>) {}
+  constructor(readonly data: E.Either<A, E>) {}
 }
 
 export type AsyncData<E, A> = Initial<A> | Loading<A> | Result<E, A>

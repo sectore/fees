@@ -52,7 +52,7 @@ export const machine = setup({
       }
     ) => {
       const htmlClass = document.querySelector('html')!.classList
-      params.theme === 'dark' ? htmlClass.add('dark') : htmlClass.remove('dark')
+      htmlClass.toggle('dark', params.theme === 'dark')
     },
   },
 }).createMachine({

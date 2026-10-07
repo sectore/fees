@@ -1,6 +1,6 @@
 import type * as App from '../types'
 
-import * as S from '@effect/schema/Schema'
+import { Schema as S } from 'effect'
 import { Effect as E, Layer, pipe } from 'effect'
 import { urlWithDefault } from '../util/url'
 import * as C from './common'
@@ -10,15 +10,15 @@ export const DEFAULT_ENDPOINT_URL = 'https://api.blockchain.info/mempool/fees'
 export const defaultUrl = () =>
   urlWithDefault(import.meta.env.VITE_URL_BLOCKCHAIN, DEFAULT_ENDPOINT_URL)
 
-const FeesSchema = S.struct({
-  regular: S.number,
-  priority: S.number,
-  limits: S.struct({
-    min: S.number,
+const FeesSchema = S.Struct({
+  regular: S.Number,
+  priority: S.Number,
+  limits: S.Struct({
+    min: S.Number,
   }),
 })
 
-type Fees = S.Schema.To<typeof FeesSchema>
+type Fees = S.Schema.Type<typeof FeesSchema>
 
 const toFees = (fees: Fees): E.Effect<App.Fees, never> =>
   E.succeed({

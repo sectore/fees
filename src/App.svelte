@@ -80,7 +80,7 @@
 </script>
 
 <div
-  class="container relative mx-auto flex h-screen flex-col bg-white dark:bg-gray-900"
+  class="relative container mx-auto flex h-screen flex-col bg-white dark:bg-gray-900"
 >
   <header
     class="flex w-full place-content-between items-center px-4 py-2 md:py-4"
@@ -92,10 +92,10 @@
         alt="BTC Logo"
       />
       <div
-        class="text-nowrap text-2xl font-bold text-gray-800 dark:text-gray-300 md:text-3xl"
+        class="text-2xl font-bold text-nowrap text-gray-800 md:text-3xl dark:text-gray-300"
       >
         fees <span
-          class="text-sm font-normal text-gray-500 dark:text-gray-300 md:text-sm"
+          class="text-sm font-normal text-gray-500 md:text-sm dark:text-gray-300"
           >sat/vB</span
         >
       </div>
@@ -115,10 +115,10 @@
         })}
       ></div>
       <select
-        class="select select-ghost select-md !pl-1 uppercase text-gray-500 md:select-lg hover:text-gray-600 focus:border-none focus:outline-none dark:bg-transparent dark:text-gray-300 dark:hover:text-gray-200 lg:!pl-2"
+        class="select select-ghost select-md md:select-lg !pl-1 text-gray-500 uppercase hover:text-gray-600 focus:border-none focus:outline-none lg:!pl-2 dark:bg-transparent dark:text-gray-300 dark:hover:text-gray-200"
         on:change={onChangeEndpoint}
       >
-        {#each entries(endpoints) as [ep]}
+        {#each entries(endpoints) as [ep] (ep)}
           <option class="text-gray-500" value={ep} selected={ep === $endpoint}>
             {ep.toUpperCase()}
           </option>
@@ -145,7 +145,7 @@
   <main class="flex flex-grow flex-col items-center justify-center">
     <div class="my-24 flex flex-col items-center">
       <div class="grid grid-cols-3 gap-x-2 gap-y-4 md:gap-x-3 md:gap-y-6">
-        {#each feesToRender as { type, value }}
+        {#each feesToRender as { type, value } (type)}
           <Fee
             {type}
             {value}
@@ -155,7 +155,7 @@
         {/each}
       </div>
       {#if AD.isFailure($fees)}
-        <p class="mt-10 w-full p-4 text-center text-base text-error">
+        <p class="text-error mt-10 w-full p-4 text-center text-base">
           Error while loading fees from {$endpoint}. <br />
           {pipe(
             $fees,
@@ -243,7 +243,7 @@
   <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
   <div
     transition:fade={{ duration: 100 }}
-    class="absolute inset-x-0 inset-y-0 z-10 bg-white bg-opacity-80 dark:bg-gray-900 dark:bg-opacity-20"
+    class="bg-opacity-80 dark:bg-opacity-20 absolute inset-x-0 inset-y-0 z-10 bg-white dark:bg-gray-900"
     on:click={() => (openSettings = false)}
   ></div>
 {/if}
@@ -253,6 +253,7 @@
   @see https://github.com/sveltejs/language-tools/issues/1512#issuecomment-1146735101
  -->
 <style lang="postcss">
+  @reference "./app.css";
   /*
     progress color needs to be defined here,
     because `class:text-orange-400` won't be included
